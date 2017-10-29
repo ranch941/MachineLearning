@@ -23,11 +23,20 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+testC = [0.01 ;0.03; 0.1; 0.3; 1; 3; 10; 30];
+testSigma = [0.01;0.03;0.1;0.3;1;3;10;30];
+bestPredictSoFar = 1;
 
-
-
-
-
+for i = 1:length(testC)
+  for j = 1:length(testSigma)
+     predictions = svmPredict(svmTrain(X,y,testC(i),@(x1,x2)gaussianKernel(x1,x2,testSigma(j))),Xval);
+     if mean(double(predictions ~= yval)) < bestPredictSoFar
+        C = testC(i);
+        sigma = testSigma(j);
+        bestPredictSoFar = mean(double(predictions ~= yval));
+     end
+  end
+end
 
 % =========================================================================
 
