@@ -22,9 +22,12 @@ idx = zeros(size(X,1), 1);
 %
 
 
-
-
-
+% k centroids ,each has more than one dimension.
+% centroids : k x n 
+for i = 1:size(X,1)
+ s = sum((X(i,:) - centroids).^2 , 2);  
+ idx(i) = min(find(s == min(s))); % find() can return more than one index , min() choose the first one.
+end
 
 
 % =============================================================

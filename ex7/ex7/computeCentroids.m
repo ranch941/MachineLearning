@@ -26,12 +26,10 @@ centroids = zeros(K, n);
 % Note: You can use a for-loop over the centroids to compute this.
 %
 
-
-
-
-
-
-
+for i = 1:K
+  % [idx==i] return [1 ; 0;...;1], and find return the indices.
+  centroids(i,:) = [idx==i]'*X/length(find([idx==i]==1));
+end
 
 % =============================================================
 
